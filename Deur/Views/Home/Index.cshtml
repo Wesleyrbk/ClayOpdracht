@@ -1,0 +1,56 @@
+﻿@using Deur.Models;
+@model Deur.Models.IndexView
+
+<table class="tg" style="undefined;table-layout: fixed; width: 800px">
+    <colgroup>
+        <col style="width: 24px">
+        <col style="width: 55px">
+        <col style="width: 72px">
+    </colgroup>
+    <tr>
+        <th class="tg-s6z2" colspan="2"><h3>Doors</h3></th>
+        <th class="tg-s6z2"><h3>History</h3></th>
+    </tr>
+    <tr>
+        <td class="tg-b7b8" colspan="2">@Html.ActionLink("Add Doors", "AddDoors", "Home")</td>
+        <td class="tg-b7b8" rowspan="2">
+        @if (Model.ViewHistory != null)
+        {
+            foreach (var r in Model.ViewHistory)
+            {
+                <p>@r</p>
+            }
+        }
+        </td>
+    </tr>
+    <tr>
+        <td class="tg-031e" colspan="2">
+        @if (Model.ViewLists != null)
+        {
+            int index = 0;
+            foreach (var r in Model.ViewLists)
+            {
+                if (@r.Open == false)
+                {
+                    @Html.ActionLink(r.Name + " is closed", "OpenDoor", "Home", new { id = index }, null)
+                }
+                else
+                {
+                    @Html.ActionLink(r.Name + " is open", "OpenDoor", "Home", new { id = index }, null)
+                }
+
+                index++;
+                <br />
+            }
+        }
+        </td>
+    </tr>
+    <tr>
+        <td class="tg-spn1" colspan="3">
+        @Html.ActionLink("User with Correct Tag", "DefineUser", "Home", new { id = "1" }, null)
+            &emsp;
+        @Html.ActionLink("User with Incorrect Tag", "DefineUser", "Home", new { id = "2" }, null)
+            &emsp;
+        @Html.ActionLink("User with No Tag", "DefineUser", "Home", new { id = "3" }, null)</td>
+    </tr>
+</table>
